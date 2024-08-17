@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Pokemon } from 'src/pokemon/pokemon.entity';
 
 @Entity()
@@ -14,7 +14,4 @@ export class Battle {
 
   @ManyToOne(() => Pokemon)
   winner: Pokemon;
-
-  @Column({ nullable: true })
-  rounds: number;
 }

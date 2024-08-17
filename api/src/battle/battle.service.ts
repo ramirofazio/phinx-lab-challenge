@@ -39,7 +39,6 @@ export class BattleService {
       pokemon1: { ...pokemon1 },
       pokemon2: { ...pokemon2 },
       winner: null,
-      rounds: null,
     });
 
     battle = await this.battleRepository.save(battle);
