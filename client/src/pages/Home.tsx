@@ -1,21 +1,15 @@
-import { useGetAllPokemons } from "../hooks/useGetAllPokemons";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+import PokemonList from "../sections/PokemonsList";
+import BattleCard from "../components/BattleCard";
 
 const Home: React.FC = () => {
-  const { pokemons, loading } = useGetAllPokemons();
-
   return (
-    <Container>
-      {loading && <p>cargando...</p>}
-      {pokemons &&
-        !loading &&
-        pokemons.map(({ id, imageUrl, name }) => (
-          <div key={id}>
-            <img src={imageUrl} alt={name} />
-
-            <h4>{name}</h4>
-          </div>
-        ))}
+    <Container sx={{ padding: 2, overflow: "hidden" }} maxWidth="md">
+      <Typography variant="h4" component="h1" mb={2}>
+        Battle of Pokemon
+      </Typography>
+      <PokemonList />
+      <BattleCard />
     </Container>
   );
 };
