@@ -20,9 +20,14 @@ export class Pokemon {
   @Column()
   speed: number;
 
-  @Column()
-  type: string;
-
-  @Column()
+  @Column('text')
   imageUrl: string;
+
+  @Column('text', {
+    transformer: {
+      to: (value: string[]) => JSON.stringify(value),
+      from: (value: string) => JSON.parse(value),
+    },
+  })
+  type: string[];
 }
