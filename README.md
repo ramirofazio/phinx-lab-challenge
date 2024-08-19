@@ -2,5 +2,15 @@
 
 ### Instructions
 
-    - Run start.dev
-    - Enjoy on http://localhost:5173 :)
+### Install:
+    cd /api
+    npm install
+    cd ..
+    cd /client
+    npm install
+
+### Start the proyect:
+    cd /
+    start start.dev
+    
+Enjoy :)
