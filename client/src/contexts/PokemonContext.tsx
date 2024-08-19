@@ -39,7 +39,7 @@ export const PokemonProvider: React.FC<{ children: React.ReactNode }> = ({
 export const usePokemonContext = (): PokemonContextType => {
   const context = useContext(PokemonContext);
   if (!context) {
-    throw new Error("usePokemonContext must be used within a PokemonProvider");
+    throw new Error("usePokemonContext provider no encontrado");
   }
   return context;
 };

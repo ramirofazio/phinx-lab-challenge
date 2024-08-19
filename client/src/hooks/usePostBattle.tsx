@@ -16,6 +16,7 @@ export const usePostBattle = () => {
       .catch((error) => {
         console.log("Hook error: ", error);
         setError(error.response.data.message);
+        alert("Hubo un error en la pelea");
       })
       .finally(() => {
         setTimeout(() => {

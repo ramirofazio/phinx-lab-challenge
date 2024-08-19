@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db',
@@ -16,7 +17,6 @@ import { ConfigModule } from '@nestjs/config';
     PokemonModule,
     SeedModule,
     BattleModule,
-    ConfigModule.forRoot({ isGlobal: true }),
   ],
 })
 export class AppModule {}

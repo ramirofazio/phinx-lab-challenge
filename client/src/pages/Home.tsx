@@ -29,8 +29,8 @@ const Home: React.FC = () => {
       <AnimatePresence mode="popLayout">
         {winner && (
           <Box
-            key={winner.id}
             component={motion.div}
+            key={winner.id}
             p={2}
             border={"2px solid gray"}
             bgcolor={"rgb(228, 249, 254)"}

@@ -17,7 +17,7 @@ export class SeedService {
         await this.pokemonRepository.save(pokemon);
       }
 
-      console.log('----- POKEMONS CARGADOS CON EXITO');
+      console.log('----- POKEMONS CARGADOS CON EXITO -----');
     } catch (e) {
       console.log('Hubo un error al cargar los pokemons');
       throw new Error(e);

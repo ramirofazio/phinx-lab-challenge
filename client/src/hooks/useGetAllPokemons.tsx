@@ -10,11 +10,14 @@ export const useGetAllPokemons = () => {
   const fetchData = useCallback(() => {
     API.get(ApiRoutes.getAllPokemon)
       .then((res) => {
-        setPokemons(res.data);
+        if (res.data) {
+          setPokemons(res.data);
+        }
       })
       .catch((error) => {
         console.log("Hook error: ", error);
         setError(error.response.data.message);
+        alert("Hubo un error al pedir todos los Pokemons");
       })
       .finally(() => {
         setLoading(false);

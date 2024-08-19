@@ -40,9 +40,8 @@ export class BattleService {
     let battle = this.battleRepository.create({
       pokemon1: { ...pokemon1 },
       pokemon2: { ...pokemon2 },
-      winner: null,
+      winner,
     });
-
     battle = await this.battleRepository.save(battle);
 
     // quien va primero

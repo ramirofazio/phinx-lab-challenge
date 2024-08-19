@@ -9,7 +9,7 @@ import { AnimatePresence } from "framer-motion";
 
 const BattlePokemons: React.FC = () => {
   const { pokemons, loading } = useGetAllPokemons();
-  const { error, postBattle, winner, loading: battleLoading } = usePostBattle();
+  const { postBattle, winner, loading: battleLoading } = usePostBattle();
   const {
     selectedPokemon,
     setWinner,
@@ -45,13 +45,6 @@ const BattlePokemons: React.FC = () => {
   useEffect(() => {
     setBlurOpponent(true);
   }, [selectedPokemon]);
-
-  useEffect(() => {
-    if (error) {
-      alert("Hubo un error en la pelea");
-      console.log(error);
-    }
-  }, [error]);
 
   useEffect(() => {
     if (winner && !battleLoading) {
