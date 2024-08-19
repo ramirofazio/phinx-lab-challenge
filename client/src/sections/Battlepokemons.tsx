@@ -1,10 +1,11 @@
-import { Button, CircularProgress, Container } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import BattleCard from "../components/BattleCard";
 import { usePokemonContext } from "../contexts/PokemonContext";
 import { useGetAllPokemons } from "../hooks/useGetAllPokemons";
 import { useCallback, useEffect, useState } from "react";
 import { Pokemon } from "../@types";
 import { usePostBattle } from "../hooks/usePostBattle";
+import { AnimatePresence } from "framer-motion";
 
 const BattlePokemons: React.FC = () => {
   const { pokemons, loading } = useGetAllPokemons();
@@ -16,6 +17,7 @@ const BattlePokemons: React.FC = () => {
   } = usePokemonContext();
 
   const [opponentPokemon, setOpponentPokemon] = useState<Pokemon | null>(null);
+  const [blurOpponent, setBlurOpponent] = useState<boolean>(true);
 
   const getRandomOpponent = useCallback(() => {
     if (!loading && pokemons) {
@@ -29,6 +31,7 @@ const BattlePokemons: React.FC = () => {
 
   const handleStartBattle = () => {
     if (!selectedPokemon || !opponentPokemon) return null;
+    setBlurOpponent(false);
     postBattle({
       pokemon1Id: selectedPokemon.id,
       pokemon2Id: opponentPokemon.id,
@@ -38,6 +41,10 @@ const BattlePokemons: React.FC = () => {
   useEffect(() => {
     getRandomOpponent();
   }, [selectedPokemon, getRandomOpponent]);
+
+  useEffect(() => {
+    setBlurOpponent(true);
+  }, [selectedPokemon]);
 
   useEffect(() => {
     if (error) {
@@ -53,14 +60,15 @@ const BattlePokemons: React.FC = () => {
   }, [winner, setWinner, battleLoading]);
 
   return (
-    <Container
-      disableGutters
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-      }}
+    <Box
+      display={"flex"}
+      flexDirection={{ xs: "column", sm: "row" }}
+      alignItems={{ xs: "center", md: "unset" }}
+      gap={2}
     >
-      {selectedPokemon && <BattleCard {...selectedPokemon} />}
+      <AnimatePresence mode="wait">
+        {selectedPokemon && <BattleCard {...selectedPokemon} index={0} />}
+      </AnimatePresence>
       {selectedPokemon && opponentPokemon && (
         <Button
           disabled={battleLoading || Boolean(contextWinner)}
@@ -76,10 +84,12 @@ const BattlePokemons: React.FC = () => {
           )}
         </Button>
       )}
-      {opponentPokemon && selectedPokemon && (
-        <BattleCard {...opponentPokemon} />
-      )}
-    </Container>
+      <AnimatePresence mode="wait">
+        {opponentPokemon && selectedPokemon && (
+          <BattleCard {...opponentPokemon} index={1} blur={blurOpponent} />
+        )}
+      </AnimatePresence>
+    </Box>
   );
 };
 

@@ -1,8 +1,15 @@
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { useGetAllPokemons } from "../hooks/useGetAllPokemons";
 import SimpleCard from "../components/SimpleCard";
 import { usePokemonContext } from "../contexts/PokemonContext";
 import { Pokemon } from "../@types";
+import { motion } from "framer-motion";
 
 const PokemonList: React.FC = () => {
   const { pokemons, loading } = useGetAllPokemons();
@@ -15,19 +22,38 @@ const PokemonList: React.FC = () => {
   };
 
   return (
-    <Container disableGutters sx={{ marginBottom: 3 }}>
-      <Typography variant="h6">Select your pokemon</Typography>
+    <Container disableGutters sx={{ marginBottom: { xs: 10, md: 3 } }}>
+      <Box
+        component={motion.div}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 100 }}
+        transition={{ delay: 0.9, type: "spring", duration: 0.8 }}
+      >
+        <Typography variant="h6">Select your pokemon</Typography>
+      </Box>
 
-      <Grid container justifyContent={"space-between"} pt={2}>
-        {loading && <CircularProgress />}
+      <Grid
+        container
+        justifyContent={{
+          xs: "center",
+          md: "space-between",
+        }}
+        alignItems={"center"}
+        gap={3}
+        pt={2}
+      >
+        {loading && (
+          <CircularProgress color="inherit" size={50} sx={{ mx: "auto" }} />
+        )}
         {pokemons &&
           !loading &&
-          pokemons.map((pokemon) => (
-            <Grid item xs={"auto"}>
+          pokemons.map((pokemon, index) => (
+            <Grid item xs={"auto"} key={index}>
               <SimpleCard
                 {...pokemon}
                 onClick={() => handleChangePokemon(pokemon)}
                 isDisabled={selectedPokemon === pokemon}
+                index={index}
               />
             </Grid>
           ))}

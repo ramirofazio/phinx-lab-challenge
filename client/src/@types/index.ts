@@ -5,7 +5,7 @@ export type Pokemon = {
   defense: number;
   hp: number;
   speed: number;
-  type: string;
+  type: string[];
   imageUrl: string;
 };
 
