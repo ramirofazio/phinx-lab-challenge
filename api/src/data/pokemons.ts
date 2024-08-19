@@ -57,3 +57,31 @@ const POKEMONS = [
 ];
 
 export default POKEMONS;
+
+//? Mock types effectiveness to this 5 pokemons
+export const typeEffectiveness = {
+  fire: {
+    strongAgainst: ['grass'],
+    weakAgainst: ['water'],
+  },
+  water: {
+    strongAgainst: ['fire'],
+    weakAgainst: ['electric', 'grass'],
+  },
+  grass: {
+    strongAgainst: ['water'],
+    weakAgainst: ['fire', 'poison'],
+  },
+  electric: {
+    strongAgainst: ['water'],
+    weakAgainst: ['ground'],
+  },
+  normal: {
+    strongAgainst: [],
+    weakAgainst: ['fighting'],
+  },
+  poison: {
+    strongAgainst: ['grass'],
+    weakAgainst: ['ground', 'psychic'],
+  },
+};
