@@ -6,25 +6,27 @@ import {
   LinearProgress,
   Box,
 } from "@mui/material";
+import { Pokemon } from "../@types";
 
-// interface BattleCardProps extends Pokemon {}
+interface BattleCardProps extends Pokemon {}
 
-const BattleCard: React.FC<any> = ({
-  attack = 3,
-  defense = 1,
-  hp = 6,
-  id = 1,
-  imageUrl = "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/025.png",
-  name = "Pikachu",
-  speed = 6,
-  type = "electric",
+const BattleCard: React.FC<BattleCardProps> = ({
+  id,
+  attack,
+  defense,
+  hp,
+  imageUrl,
+  name,
+  speed,
+  type,
 }) => {
   return (
     <Card
       sx={{
         maxWidth: "40%",
-        boxShadow: "0px 6px 30px rgba(0, 0, 0, 0.3)",
+        boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.3)",
         borderRadius: 2,
+        width: "100%",
       }}
     >
       <CardMedia

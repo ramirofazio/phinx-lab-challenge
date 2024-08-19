@@ -1,9 +1,16 @@
 import { Card, CardMedia, Typography } from "@mui/material";
 import { Pokemon } from "../@types";
 
-interface SimpleCardProps extends Pokemon {}
+interface SimpleCardProps extends Pokemon {
+  onClick: () => void;
+}
 
-const SimpleCard: React.FC<SimpleCardProps> = ({ id, name, imageUrl }) => {
+const SimpleCard: React.FC<SimpleCardProps> = ({
+  id,
+  name,
+  imageUrl,
+  onClick,
+}) => {
   return (
     <Card
       id={String(id)}
@@ -13,6 +20,7 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ id, name, imageUrl }) => {
         boxShadow: "2px 2px 10px #2e2e2e50",
         borderRadius: 2,
       }}
+      onClick={onClick}
     >
       <CardMedia
         component="img"
