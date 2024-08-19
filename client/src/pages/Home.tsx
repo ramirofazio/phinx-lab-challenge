@@ -1,10 +1,10 @@
 import { Box, Container, Typography } from "@mui/material";
 import PokemonList from "../sections/PokemonsList";
 import BattlePokemons from "../sections/Battlepokemons";
-import { usePostBattle } from "../hooks/usePostBattle";
+import { usePokemonContext } from "../contexts/PokemonContext";
 
 const Home: React.FC = () => {
-  const { winner, loading } = usePostBattle();
+  const { winner } = usePokemonContext();
 
   return (
     <Container
@@ -19,15 +19,17 @@ const Home: React.FC = () => {
         Battle of Pokemon
       </Typography>
       <PokemonList />
-      {winner && !loading && (
+      {winner && (
         <Box
           sx={{
             p: 2,
-            border: "2px solid #71FB46",
-            backgroundColor: "#71FB4640",
+            border: "2px solid gray",
+            backgroundColor: "rgb(228, 249, 254)",
+            mb: 3,
+            borderRadius: 2,
           }}
         >
-          {winner.name} wins!
+          <Typography variant="h6">{winner.name} wins!</Typography>
         </Box>
       )}
       <BattlePokemons />

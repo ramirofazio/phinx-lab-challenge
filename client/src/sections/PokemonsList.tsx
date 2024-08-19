@@ -2,10 +2,17 @@ import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { useGetAllPokemons } from "../hooks/useGetAllPokemons";
 import SimpleCard from "../components/SimpleCard";
 import { usePokemonContext } from "../contexts/PokemonContext";
+import { Pokemon } from "../@types";
 
 const PokemonList: React.FC = () => {
   const { pokemons, loading } = useGetAllPokemons();
-  const { setSelectedPokemon } = usePokemonContext();
+  const { selectedPokemon, setSelectedPokemon, resetWinner } =
+    usePokemonContext();
+
+  const handleChangePokemon = (pokemon: Pokemon) => {
+    setSelectedPokemon(pokemon);
+    resetWinner();
+  };
 
   return (
     <Container disableGutters sx={{ marginBottom: 3 }}>
@@ -19,7 +26,8 @@ const PokemonList: React.FC = () => {
             <Grid item xs={"auto"}>
               <SimpleCard
                 {...pokemon}
-                onClick={() => setSelectedPokemon(pokemon)}
+                onClick={() => handleChangePokemon(pokemon)}
+                isDisabled={selectedPokemon === pokemon}
               />
             </Grid>
           ))}

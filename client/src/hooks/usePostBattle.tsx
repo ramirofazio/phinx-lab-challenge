@@ -18,7 +18,9 @@ export const usePostBattle = () => {
         setError(error.response.data.message);
       })
       .finally(() => {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000); //? Mock loading to implement Loader
       });
   }, []);
 

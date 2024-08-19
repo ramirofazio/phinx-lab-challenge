@@ -1,4 +1,4 @@
-import { Button, Container } from "@mui/material";
+import { Button, CircularProgress, Container } from "@mui/material";
 import BattleCard from "../components/BattleCard";
 import { usePokemonContext } from "../contexts/PokemonContext";
 import { useGetAllPokemons } from "../hooks/useGetAllPokemons";
@@ -8,8 +8,12 @@ import { usePostBattle } from "../hooks/usePostBattle";
 
 const BattlePokemons: React.FC = () => {
   const { pokemons, loading } = useGetAllPokemons();
-  const { error, loading: battleLoading, postBattle } = usePostBattle();
-  const { selectedPokemon } = usePokemonContext();
+  const { error, postBattle, winner, loading: battleLoading } = usePostBattle();
+  const {
+    selectedPokemon,
+    setWinner,
+    winner: contextWinner,
+  } = usePokemonContext();
 
   const [opponentPokemon, setOpponentPokemon] = useState<Pokemon | null>(null);
 
@@ -42,6 +46,12 @@ const BattlePokemons: React.FC = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (winner && !battleLoading) {
+      setWinner(winner);
+    }
+  }, [winner, setWinner, battleLoading]);
+
   return (
     <Container
       disableGutters
@@ -53,12 +63,17 @@ const BattlePokemons: React.FC = () => {
       {selectedPokemon && <BattleCard {...selectedPokemon} />}
       {selectedPokemon && opponentPokemon && (
         <Button
+          disabled={battleLoading || Boolean(contextWinner)}
           variant="contained"
           color="success"
-          sx={{ height: "", alignSelf: "center" }}
+          sx={{ height: "50px", alignSelf: "center", width: "150px" }}
           onClick={handleStartBattle}
         >
-          Start Battle
+          {battleLoading ? (
+            <CircularProgress color="inherit" size={20} />
+          ) : (
+            "Start Battle"
+          )}
         </Button>
       )}
       {opponentPokemon && selectedPokemon && (
